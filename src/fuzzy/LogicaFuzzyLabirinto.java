@@ -34,7 +34,7 @@ public class LogicaFuzzyLabirinto {
 
     private int teste;
 
-    public LogicaFuzzy(RoboEmAcao campoRobo)
+    public LogicaFuzzyLabirinto(RoboEmAcao campoRobo)
     {
         campo = campoRobo;
         limiteSensor = campo.sensorAcance;

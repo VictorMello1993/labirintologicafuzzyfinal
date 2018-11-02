@@ -13,7 +13,7 @@ public class RoboEmAcao {
     public int sensorAtual;
     public int sensorAcance;
 
-    public RoboEmAcao(Labirinto lab, boolean fim, boolean saidaEncontrada, int sensor, int sensorAtual, int sensorAcance) {
+    public RoboEmAcao() {
         lab = new Labirinto(50,50);
         Componente pc = new Sensor(lab, Cor.VERMELHO);
         colocarPecas();
@@ -232,5 +232,124 @@ public class RoboEmAcao {
                 }
                 break;
         }
+    }
+
+    public void moveSensor(Posicao coord) {
+        if(sensor != 0) desligaSensor(coord);
+        sensor++;
+        if (sensor == 9) sensor = 1; 
+        
+        ligaSensor(coord);
+    }
+
+    public void paraSensor(Posicao coord) {
+        desligaSensor(coord);
+        sensor = 0;
+    }
+
+    public void naPosicao(Posicao origem) {
+        if (lab.componente(origem) != null && lab.componente(origem).cor == Cor.AZULCLARO)
+        {
+            fim = true;
+        }
+        else
+        {
+            saidaEncontrada = false;
+        }
+    }
+
+    public Posicao portaSaida(Posicao origem, Posicao destino) {
+        Posicao teste = new Posicao(0, 0);
+        int len;
+
+        if (origem.linha == destino.linha)
+        {
+            teste.linha = destino.linha;
+
+            if (origem.coluna < destino.coluna)
+            {
+                len = (destino.coluna - origem.coluna) + 1;
+
+                for (int i = 0; i < len; i++)
+                {
+                    teste.coluna = origem.coluna + i;
+
+                    if (lab.componente(teste) != null)
+                    {
+                        if (lab.componente(teste).cor == Cor.AZULCLARO)
+                        {
+                            saidaEncontrada = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                len = (origem.coluna - destino.coluna) + 1;
+
+                for (int i = 0; i < len; i++)
+                {
+                    teste.coluna = origem.coluna - i;
+
+                    if (lab.componente(teste) != null)
+                    {
+                        if (lab.componente(teste).cor == Cor.AZULCLARO)
+                        {
+                            saidaEncontrada = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            teste.coluna = destino.coluna;
+
+            if (origem.linha < destino.linha)
+            {
+                len = (destino.linha - origem.linha) + 1;
+
+                for (int i = 0; i < len; i++)
+                {
+                    teste.linha = origem.linha + i;
+
+                    if (lab.componente(teste) != null)
+                    {
+                        if (lab.componente(teste).cor == Cor.AZULCLARO)
+                        {
+                            saidaEncontrada = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                len = (origem.linha - destino.linha) + 1;
+
+                for (int i = 0; i < len; i++)
+                {
+                    teste.linha = origem.linha - i;
+
+                    if (lab.componente(teste) != null)
+                    {
+                        if (lab.componente(teste).cor == Cor.AZULCLARO)
+                        {
+                            saidaEncontrada = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return teste;
+    }
+
+    public void moveRobo(Posicao origem, Posicao destino) {
+        Componente p = lab.moveRoboOrigem(origem);
+        lab.moveRoboDestino(p, destino);
+        if(!saidaEncontrada) ligaSensor(destino);
     }
 }
