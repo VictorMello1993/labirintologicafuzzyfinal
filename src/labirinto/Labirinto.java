@@ -119,19 +119,11 @@ public class Labirinto {
 
     public boolean limite(Posicao pos)
     {
-        return (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas)? true : false;
+        return (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna >= colunas);
     }
 
     public boolean validarPosicao(Posicao pos)
     {
-    	boolean valida;
-
-        if (!barreira(pos))
-        {
-            valida = false;
-        }
-        else valida = true;
-
-        return valida;
+        return barreira(pos);
     }
 }

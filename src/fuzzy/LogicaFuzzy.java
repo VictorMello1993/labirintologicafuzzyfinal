@@ -18,11 +18,6 @@ public class LogicaFuzzy {
     private Distancia distanciaNorte;
     private Distancia distanciaOeste;
 
-    private double fuzzySaidaSul;
-    private double fuzzySaidaLeste;
-    private double fuzzySaidaNorte;
-    private double fuzzySaidaOeste;
-
     private double fuzzySaida;
     private Rota rota;
     private int deslocamento;
@@ -226,46 +221,39 @@ public class LogicaFuzzy {
     }
 
     private void fuzzyRegra()
-    {
+    {      
+        Rota rotaAnterior = rota;
+        
+        // Regra 0
+        if (distanciaLeste != Distancia.BLOQUEADA &&
+            rotaAnterior == Rota.SEMROTA) rota = Rota.LESTE;
+                    
+        // Regra 1
+        if (distanciaSul != Distancia.BLOQUEADA &&
+            rotaAnterior != Rota.SEMROTA) rota = Rota.SUL;
 
-        if (rota == Rota.SEMROTA) //inicio
-        {
-            if (distanciaLeste != Distancia.BLOQUEADA) { rota = Rota.LESTE; }
-        }
-        else
-        {
-            if (distanciaSul != Distancia.BLOQUEADA) rota = Rota.SUL;
+        // Regra 2
+        if (distanciaSul == Distancia.BLOQUEADA &&
+            distanciaOeste != Distancia.BLOQUEADA &&
+            rotaAnterior != Rota.LESTE) rota = Rota.OESTE;
 
-            if (rota == Rota.OESTE) {
-                if (distanciaOeste != Distancia.BLOQUEADA) rota = Rota.OESTE;
-                else rota = Rota.LESTE;
-            }
-            else if(rota == Rota.LESTE)
-            {
-                if (distanciaLeste != Distancia.BLOQUEADA &&
-                distanciaOeste == Distancia.BLOQUEADA) rota = Rota.LESTE;
-            }
-            else
-            {
-                if (distanciaSul == Distancia.BLOQUEADA &&
-                    distanciaOeste != Distancia.BLOQUEADA) rota = Rota.OESTE;
+        // Regra 3
+        if (distanciaSul == Distancia.BLOQUEADA &&
+            distanciaOeste == Distancia.BLOQUEADA ||
+            (distanciaSul == Distancia.BLOQUEADA &&
+            distanciaOeste != Distancia.BLOQUEADA &&
+            rotaAnterior == Rota.LESTE)) rota = Rota.LESTE;
 
-                if (distanciaSul == Distancia.BLOQUEADA &&
-                    distanciaOeste == Distancia.BLOQUEADA &&
-                    distanciaLeste != Distancia.BLOQUEADA) rota = Rota.OESTE;
-
-            }
-
-            if (distanciaSul == Distancia.BLOQUEADA &&
-                distanciaLeste == Distancia.BLOQUEADA &&
-                distanciaNorte != Distancia.BLOQUEADA &&
-                distanciaOeste == Distancia.BLOQUEADA) rota = Rota.NORTE;
-        }
+        // Regra 4
+        if (distanciaSul == Distancia.BLOQUEADA &&
+            distanciaOeste != Distancia.BLOQUEADA &&
+            distanciaLeste == Distancia.BLOQUEADA &&
+            rotaAnterior == Rota.LESTE) rota = Rota.OESTE;
     }
 
     public void fuzzyInfere()
     {
-        distanciaSul = fuzzyDistancia(uSul);
+        distanciaSul   = fuzzyDistancia(uSul);
         distanciaLeste = fuzzyDistancia(uLeste);
         distanciaNorte = fuzzyDistancia(uNorte);
         distanciaOeste = fuzzyDistancia(uOeste);
@@ -304,6 +292,8 @@ public class LogicaFuzzy {
         Posicao crispPosicao = new Posicao(pos.linha, pos.coluna);
 
         deslocamento = (int)Math.ceil(fuzzySaida);
+        
+        if (deslocamento < 0) deslocamento = 0;
 
         switch (rota)
         {
@@ -326,19 +316,17 @@ public class LogicaFuzzy {
         return crispPosicao;
     }
 
-    public Posicao fuzzy(Posicao pos)
+    public Posicao fuzzy(Posicao posOrigem)
     {
-        if (pos.linha > 44)
-        {
-            teste = 10;
-        }
+    	Posicao posDestino;
 
-
-        crispEntrada(pos);
+        crispEntrada(posOrigem);
         fuzificar();
         fuzzyInfere();
         desfuzificar();
 
-        return CrispSaida(pos);
+        posDestino = CrispSaida(posOrigem);
+
+        return campo.portaSaida(posOrigem, posDestino);
     }
 }

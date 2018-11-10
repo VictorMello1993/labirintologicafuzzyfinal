@@ -14,6 +14,7 @@ public abstract class Componente {
         this.alcance = 5;
     }
 
+    @Override
     public abstract String toString();
     
     public abstract boolean[][] movimentosPossiveis();

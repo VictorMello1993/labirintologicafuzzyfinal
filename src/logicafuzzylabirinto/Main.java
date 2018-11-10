@@ -23,7 +23,7 @@ public class Main {
                 Tela.imprimirLabirinto(campo);
 
                 campo.moveSensor(destino);
-                delay(30);
+                delay(200);
                 i++;
             }
 
@@ -49,9 +49,9 @@ public class Main {
     {
     	try 
     	{
-		   Thread.sleep(time_ms);
-		} catch (Exception e) {
+        Thread.sleep(time_ms);
+        } catch (Exception e) {
 		   //e.printStackTrace();
-		}
+        }
     }
 }
