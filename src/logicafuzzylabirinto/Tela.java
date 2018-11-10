@@ -1,19 +1,20 @@
 package logicafuzzylabirinto;
 
 import fuzzy.RoboEmAcao;
-import java.util.Scanner;
 import labirinto.Componente;
 
 public class Tela {
     public static void imprimirLabirinto(RoboEmAcao campo){
         
         clearScreen();
-        Scanner ler = new Scanner(System.in);
-
         System.out.println("");
+        
+        //Se o programa terminar, não executar mais os loopings para não imprimir as bordas do labirinto para melhor visualização 
+    if(!campo.fim) {
+        
         System.out.println(" \\C 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4");
         System.out.println(" L\\ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9");
-
+              
         for (int i=0; i<campo.lab.linhas; i++)
         {
 
@@ -47,22 +48,17 @@ public class Tela {
             {
             	System.out.print(i + " ");
             }
-
-            System.out.println("");
             
-            if (campo.fim)
-            {
-            	 System.out.println("Fim - O robo encontrou a saída!");
-            	 ler.nextLine();
-            	 ler.close();
-                 break; //break para evitar que estoure a exceção ao pressionar o botão ENTER quando terminar o programa
-            }
+            System.out.println("");
         }
         
         System.out.println("    0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 \\L");
         System.out.println("    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 C\\");
-
-    }
+        
+    } else {
+        System.out.println("Fim - O robo encontrou a saída!");
+    }        
+}
     
     public static void imprimirPeca(Componente componente)
     {

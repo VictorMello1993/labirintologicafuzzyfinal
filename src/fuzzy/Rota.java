@@ -7,12 +7,13 @@ public enum Rota {
     NORTE("norte"),
     SEMROTA("semRota");
 
-    private String descricao;
+private String descricao;
 
-    Rota(String descricao){
-            this.descricao = descricao;
-    }
+Rota(String descricao){
+    this.descricao = descricao;
+}
 
-    public String getDescrocao() { return descricao;}
+public String getDescricao() { return descricao;}
+
 }
 

@@ -276,49 +276,49 @@ public class RoboEmAcao {
             case 1:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha + i, origem.coluna); //Sul
+                    destruirObstaculo(origem.linha + i, origem.coluna); //Sul
                 }
                 break;
             case 2:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha + i, origem.coluna + i); //Sudeste
+                    destruirObstaculo(origem.linha + i, origem.coluna + i); //Sudeste
                 }
                 break;
             case 3:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha, origem.coluna + i); //Leste
+                    destruirObstaculo(origem.linha, origem.coluna + i); //Leste
                 }
                 break;
             case 4:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha - i, origem.coluna + i); //Nordeste
+                    destruirObstaculo(origem.linha - i, origem.coluna + i); //Nordeste
                 }
                 break;
             case 5:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha - i, origem.coluna); //Norte
+                    destruirObstaculo(origem.linha - i, origem.coluna); //Norte
                 }
                 break;
             case 6:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha - i, origem.coluna - i); //Noroeste
+                    destruirObstaculo(origem.linha - i, origem.coluna - i); //Noroeste
                 }
                 break;
             case 7:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha, origem.coluna - i); //Oeste
+                    destruirObstaculo(origem.linha, origem.coluna - i); //Oeste
                 }
                 break;
             case 8:
                 for (int i = 1; i < sensorAcance; i++)
                 {
-                    destruirS(origem.linha + i, origem.coluna - i); //Sudoeste
+                    destruirObstaculo(origem.linha + i, origem.coluna - i); //Sudoeste
                 }
                 break;
         }
@@ -348,7 +348,7 @@ public class RoboEmAcao {
         return false;
     }
 
-    private void destruirS(int lin, int col)
+    private void destruirObstaculo(int lin, int col)
     {
         Posicao pos = new Posicao(lin, col);
 

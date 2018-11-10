@@ -6,13 +6,13 @@ import labirinto.Labirinto;
 
 public class Sensor extends Componente {
 	
-	public Sensor(Labirinto lab, Cor cor) 
+    public Sensor(Labirinto lab, Cor cor) 
     {
 	super(lab, cor);
     }
 
-	@Override
-	public String toString()
+    @Override
+    public String toString()
     {
         return "s";
     }

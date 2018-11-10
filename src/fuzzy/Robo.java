@@ -19,29 +19,29 @@ public class Robo  extends Componente {
 
     private boolean podeMover(Posicao pos)
     {
-    	boolean teste = false;
+    	boolean SimNao = false;
         Componente p = lab.componente(pos);
 
         if (!lab.barreira(pos))
         {
             if (p == null || p.cor == Cor.VERMELHO)
             {
-                teste = true;
+                SimNao = true;
             }
             else
             if (p != null && p.cor == Cor.AMARELO)
             {
-                teste = false;
+                SimNao = false;
             }
             else
             if (p != null && p.cor == Cor.AZULCLARO)
             {
-                teste = true;
+                SimNao = true;
             }
         }
-        else teste = false;
+        else SimNao = false;
 
-        return teste;
+        return SimNao;
     }
 
     @Override
